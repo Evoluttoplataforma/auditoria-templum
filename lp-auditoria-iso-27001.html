@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoria Interna ISO 27001 | Segurança da Informação | Templum</title>
+  <meta name="description" content="Garanta a conformidade da sua certificação ISO 27001. Auditoria interna especializada em segurança da informação com relatórios detalhados e plano de ação.">
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WLFN684J');</script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#00469D',
+            'navy-dark': '#1E293B',
+            'navy-deeper': '#0F172A',
+            'yellow-cta': '#FBBF24',
+          },
+          fontFamily: {
+            sans: ['ui-sans-serif','system-ui','-apple-system','Segoe UI','Roboto','Helvetica Neue','Arial','sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @property --gradient-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @property --color-1 {
+      syntax: '<color>';
+      initial-value: #2563EB;
+      inherits: false;
+    }
+    @property --color-2 {
+      syntax: '<color>';
+      initial-value: #00469D;
+      inherits: false;
+    }
+
+    .gradient-border {
+      position: relative;
+      border-radius: 16px;
+      z-index: 0;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: conic-gradient(from var(--gradient-angle), var(--color-1), var(--color-2), var(--color-1));
+      z-index: -1;
+      animation: spin-gradient 4s linear infinite;
+      transition: --color-1 0.5s, --color-2 0.5s;
+    }
+    .gradient-border:hover::before {
+      --color-1: #F97316;
+      --color-2: #FBBF24;
+    }
+    @keyframes spin-gradient {
+      to { --gradient-angle: 360deg; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px) scale(0.97);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* Card hover glow effect for dark sections */
+    .card-glow {
+      transition: box-shadow 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, background 0.4s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .card-glow-red:hover {
+      box-shadow: 0 20px 40px -12px rgba(239, 68, 68, 0.15);
+    }
+    .card-glow-blue:hover {
+      box-shadow: 0 20px 40px -12px rgba(6, 182, 212, 0.15);
+    }
+    .card-glow-green:hover {
+      box-shadow: 0 8px 32px -4px rgba(34, 197, 94, 0.15), 0 0 20px rgba(34, 197, 94, 0.08);
+    }
+
+    @keyframes blur-in {
+      from { filter: blur(8px); opacity: 0; }
+      to { filter: blur(0); opacity: 1; }
+    }
+    @keyframes slide-up-fade {
+      from { transform: translateY(24px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes float-y {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes bounce-subtle {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.02); }
+    }
+    @keyframes ping-dot {
+      75%, 100% { transform: scale(2); opacity: 0; }
+    }
+    @keyframes cta-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(251,191,36,0.4); }
+      50% { box-shadow: 0 0 0 12px rgba(251,191,36,0); }
+    }
+
+    .animate-blur-in { animation: blur-in 0.8s ease-out both; }
+    .animate-slide-up { animation: slide-up-fade 0.8s ease-out both; }
+    .animate-float { animation: float-y 4s ease-in-out infinite; }
+    .animate-bounce-s { animation: bounce-subtle 3s ease-in-out infinite; }
+    .btn-pulse { animation: cta-pulse 2s infinite; }
+    .ping-anim { animation: ping-dot 1.5s cubic-bezier(0,0,0.2,1) infinite; }
+
+    .stagger-1 { animation-delay: 0.15s; }
+    .stagger-2 { animation-delay: 0.3s; }
+    .stagger-3 { animation-delay: 0.5s; }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .faq-item.active .faq-answer { max-height: 500px; }
+    .faq-icon { transition: transform 0.3s ease; }
+    .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+    @keyframes scroll-logos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .logos-scroll {
+      display: flex;
+      animation: scroll-logos 20s linear infinite;
+      width: max-content;
+    }
+    .logos-scroll:hover { animation-play-state: paused; }
+
+    /* Typewriter effect */
+    .typewriter { overflow: hidden; white-space: nowrap; border-right: 3px solid #00469D; width: 0; }
+    .typewriter.typing { animation: typewrite 2.5s steps(50, end) forwards, blink-caret 0.6s step-end infinite; }
+    .typewriter.done { border-right-color: transparent; width: 100%; white-space: normal; }
+    @keyframes typewrite { from { width: 0; } to { width: 100%; } }
+    @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: #00469D; } }
+
+    .typewriter-sub { opacity: 0; transform: translateY(10px); }
+    .typewriter-sub.visible { animation: sub-appear 0.6s ease-out forwards; }
+    @keyframes sub-appear { to { opacity: 1; transform: translateY(0); } }
+
+    .highlight-marker {
+      background: linear-gradient(120deg, transparent 0%, #bfdbfe 0%);
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      padding: 2px 6px;
+      margin: -2px -6px;
+      border-radius: 4px;
+      transition: background-size 0.6s ease;
+    }
+    .highlight-marker.active { background-size: 100% 100%; }
+
+    /* Chat highlight indicator */
+    @keyframes chat-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0), 0 25px 50px -12px rgba(0,0,0,0.15); }
+      25% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0.4), 0 25px 50px -12px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 0 0 16px rgba(251, 191, 36, 0), 0 25px 50px -12px rgba(0,0,0,0.15); }
+    }
+    @keyframes point-bounce {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+    .chat-highlight #chat-widget {
+      animation: chat-glow 1.5s ease-in-out 3;
+      border-color: #FBBF24 !important;
+    }
+    .chat-highlight .chat-point-arrow {
+      display: flex !important;
+    }
+    .chat-point-arrow {
+      display: none !important;
+      position: absolute;
+      left: -140px;
+      top: 50%;
+      transform: translateY(-50%);
+      align-items: center;
+      gap: 8px;
+      animation: point-bounce 0.8s ease-in-out infinite;
+      z-index: 30;
+    }
+
+    /* Chat quiz styles */
+    .chat-bubble-bot {
+      background: white;
+      border-radius: 2px 12px 12px 12px;
+      padding: 10px 14px;
+      max-width: 85%;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      font-size: 13px;
+      line-height: 1.5;
+      color: #374151;
+      animation: chat-msg-in 0.3s ease-out;
+    }
+    .chat-bubble-user {
+      background: #00469D;
+      color: white;
+      border-radius: 12px 2px 12px 12px;
+      padding: 10px 14px;
+      max-width: 85%;
+      margin-left: auto;
+      font-size: 13px;
+      line-height: 1.5;
+      animation: chat-msg-in 0.3s ease-out;
+    }
+    .chat-typing {
+      display: flex;
+      gap: 4px;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 2px 12px 12px 12px;
+      width: fit-content;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .chat-typing span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #9ca3af;
+      animation: typing-dot 1.4s infinite ease-in-out;
+    }
+    .chat-typing span:nth-child(1) { animation-delay: 0s; }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing-dot {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes chat-msg-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-option-btn {
+      display: block; width: 100%; text-align: left;
+      padding: 10px 14px; border: 1.5px solid #e5e7eb;
+      border-radius: 10px; font-size: 13px; color: #374151;
+      background: white; cursor: pointer; transition: all 0.2s;
+    }
+    .chat-option-btn:hover {
+      border-color: #00469D; background: #eff6ff; color: #00469D;
+    }
+    .chat-result-card {
+      background: white; border-radius: 12px; padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      animation: chat-msg-in 0.4s ease-out;
+      max-width: 92%;
+    }
+    #chat-messages::-webkit-scrollbar { width: 4px; }
+    #chat-messages::-webkit-scrollbar-track { background: transparent; }
+    #chat-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+    html { scroll-behavior: smooth; }
+    .form-success { animation: slide-up-fade 0.5s ease-out; }
+    .form-error { animation: slide-up-fade 0.3s ease-out; }
+    .counter { font-variant-numeric: tabular-nums; }
+
+    /* Mobile chat modal */
+    .mobile-chat-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .mobile-chat-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .mobile-chat-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 101;
+      display: flex;
+      flex-direction: column;
+      background: #f0f2f5;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .mobile-chat-overlay.active + .mobile-chat-modal,
+    .mobile-chat-modal.active {
+      transform: translateY(0);
+    }
+
+    /* Safe area padding for mobile notch/bottom bar */
+    .safe-area-top { padding-top: max(12px, env(safe-area-inset-top)); }
+    .safe-area-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  </style>
+</head>
+<body class="font-sans text-gray-900 bg-white antialiased overflow-x-hidden">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLFN684J"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-gray-100 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <img src="logo-templum.svg" alt="Templum" class="h-8 md:h-9">
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 ping-anim"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+          </span>
+          <span class="text-sm text-gray-500">Online agora</span>
+        </div>
+        <a href="#diagnostico" class="bg-brand-blue text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-800 transition-all duration-200">
+          Fazer Diagnóstico
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="pt-28 pb-16 md:pt-36 md:pb-24 bg-gradient-to-b from-blue-50/60 to-white overflow-hidden relative">
+      <!-- Pointing hand - saindo da lateral direita -->
+      <img src="mao-apontando.webp" alt="" class="hidden md:block absolute bottom-0 right-0 w-32 lg:w-40 z-10 pointer-events-none select-none" style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 bg-blue-50 text-brand-blue text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-6 animate-blur-in">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              AUDITORIA ISO 27001
+            </div>
+            <h1 class="text-2xl sm:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-[1.15] tracking-tight mb-3">
+              <span id="headline-line1" class="block"></span>
+            </h1>
+            <p id="headline-line2" class="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-brand-blue leading-snug mb-6 typewriter-sub">
+              Faça o diagnóstico gratuito e descubra antes do auditor externo.
+            </p>
+            <p id="subheadline" class="text-base md:text-lg text-gray-500 leading-relaxed mb-8 typewriter-sub">
+              Diagnóstico que previne, não apaga incêndio. Descubra os riscos da sua certificação ISO em 5 minutos. Nossa experiência de <strong class="text-gray-700">+5.000 auditorias</strong>.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 animate-slide-up stagger-3">
+              <a href="#diagnostico" class="hidden md:inline-block bg-yellow-cta text-gray-900 font-bold px-8 py-4 rounded-xl text-center hover:bg-yellow-400 transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-yellow-400/25 btn-pulse">
+                FAZER DIAGNÓSTICO INICIAL
+              </a>
+              <!-- Mobile CTA - opens fullscreen chat modal -->
+              <button onclick="openMobileChat()" class="md:hidden bg-yellow-cta text-gray-900 font-bold px-8 py-4 rounded-xl text-center hover:bg-yellow-400 transition-all duration-200 shadow-lg shadow-yellow-400/25 btn-pulse">
+                FAZER DIAGNÓSTICO INICIAL
+              </button>
+              <a href="#como-funciona" class="border-2 border-gray-200 text-gray-700 font-semibold px-8 py-4 rounded-xl text-center hover:border-brand-blue hover:text-brand-blue transition-all duration-200">
+                Como funciona →
+              </a>
+            </div>
+            <!-- Client logos carousel -->
+            <div class="mt-10 animate-slide-up stagger-3">
+              <p class="text-gray-400 text-sm mb-4">Alguns de Nossos Clientes:</p>
+              <div class="overflow-hidden relative" style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+                <div class="logos-scroll">
+                  <div class="flex items-center gap-10 pr-10">
+                    <img src="logos-clientes/iso-9001/cm-advogados.jpeg" alt="CM Advogados" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/roncon.jpg" alt="Roncon" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/inovatti.jpg" alt="Inovatti" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/dominio-controle.jpg" alt="Domínio Controle" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/acivi.jpg" alt="ACIVI" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/agrocontar.jpg" alt="Agrocontar" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/barcelos.jpg" alt="Barcelos" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/sgi/ceramica-carmelo-fior.jpg" alt="Cerâmica Carmelo Fior" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-14001/4r-solucoes.png" alt="4R Soluções" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                  </div>
+                  <div class="flex items-center gap-10 pr-10">
+                    <img src="logos-clientes/iso-9001/cm-advogados.jpeg" alt="CM Advogados" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/roncon.jpg" alt="Roncon" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/inovatti.jpg" alt="Inovatti" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/dominio-controle.jpg" alt="Domínio Controle" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/acivi.jpg" alt="ACIVI" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/agrocontar.jpg" alt="Agrocontar" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-9001/barcelos.jpg" alt="Barcelos" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/sgi/ceramica-carmelo-fior.jpg" alt="Cerâmica Carmelo Fior" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <img src="logos-clientes/iso-14001/4r-solucoes.png" alt="4R Soluções" class="h-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Chat Diagnóstico -->
+          <div id="diagnostico" class="relative hidden md:block animate-slide-up stagger-3">
+            <!-- Arrow indicator -->
+            <div class="chat-point-arrow">
+              <span class="bg-yellow-cta text-gray-900 font-bold text-sm px-4 py-2 rounded-xl shadow-lg whitespace-nowrap">Faça aqui!</span>
+              <svg class="w-8 h-8 text-yellow-cta" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </div>
+            <div id="chat-widget" class="bg-white rounded-2xl shadow-2xl shadow-gray-200/60 border border-gray-100 overflow-hidden flex flex-col" style="height: 560px;">
+              <!-- Chat header -->
+              <div class="bg-brand-blue px-4 py-3 flex items-center gap-3 flex-shrink-0">
+                <img src="avatar-especialista.jpeg" alt="Especialista Templum" class="w-9 h-9 rounded-full object-cover flex-shrink-0 border-2 border-white/30">
+                <div class="min-w-0">
+                  <div class="text-white font-semibold text-sm">Especialista Templum</div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-green-400 flex-shrink-0"></span>
+                    <span class="text-white/80 text-xs">Online</span>
+                  </div>
+                </div>
+                <div class="ml-auto" id="chat-progress-wrap" style="display:none;">
+                  <span id="chat-counter" class="text-xs text-white/80 bg-white/20 px-2.5 py-1 rounded-full font-medium"></span>
+                </div>
+              </div>
+              <!-- Chat messages -->
+              <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3" style="background: #f0f2f5;">
+              </div>
+              <!-- Start area -->
+              <div id="chat-start-area" class="p-3 border-t border-gray-100 bg-white flex-shrink-0">
+                <button onclick="startChat()" class="w-full bg-brand-blue text-white font-bold py-3 rounded-xl hover:bg-blue-800 transition-all btn-pulse shadow-lg shadow-brand-blue/25 text-sm">
+                  COMEÇAR DIAGNÓSTICO GRATUITO
+                </button>
+              </div>
+              <!-- Options area (hidden initially) -->
+              <div id="chat-options-area" class="hidden p-3 border-t border-gray-100 bg-white flex-shrink-0 max-h-[200px] overflow-y-auto">
+                <div id="chat-options" class="space-y-2"></div>
+              </div>
+              <!-- Result CTA area (hidden initially) -->
+              <div id="chat-cta-area" class="hidden p-3 border-t border-gray-100 bg-white flex-shrink-0">
+                <a href="#form" class="block w-full bg-yellow-cta text-gray-900 font-bold py-3 rounded-xl text-center hover:bg-yellow-400 transition-all text-sm btn-pulse shadow-lg shadow-yellow-400/25">
+                  RECEBER RELATÓRIO COMPLETO
+                </a>
+              </div>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg shadow-green-500/30 animate-bounce-s">
+              Baseado em +5.000 auditorias
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIG NUMBERS -->
+    <section class="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden reveal">
+      <!-- Background pattern -->
+      <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 1px 1px, #00469D 1px, transparent 0); background-size: 40px 40px;"></div>
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Stats card -->
+        <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden relative">
+          <!-- Ribbon badge -->
+          <div class="absolute -top-1 -left-1 z-20">
+            <div class="bg-yellow-cta text-gray-900 font-extrabold text-xs uppercase tracking-wide px-5 py-2.5 rounded-br-xl rounded-tl-xl shadow-lg" style="clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);">
+              Líder no mercado de Auditorias
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3">
+            <!-- Highlighted first stat -->
+            <div class="bg-navy-dark text-center py-10 px-6 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative z-10">
+                <div class="text-4xl md:text-5xl font-extrabold text-white mb-2 counter" data-target="5000" data-prefix="+" data-separator=".">0</div>
+                <div class="text-gray-300 text-sm font-medium tracking-wide uppercase">Auditorias Realizadas</div>
+              </div>
+            </div>
+            <!-- Second stat -->
+            <div class="text-center py-10 px-6 border-b md:border-b-0 md:border-x border-gray-100 group hover:bg-blue-50/30 transition-colors duration-300">
+              <div class="text-4xl md:text-5xl font-extrabold text-brand-blue mb-2 counter" data-target="25" data-prefix="+">0</div>
+              <div class="text-gray-500 text-sm font-medium tracking-wide uppercase">Auditores Experientes</div>
+            </div>
+            <!-- Third stat -->
+            <div class="text-center py-10 px-6 group hover:bg-blue-50/30 transition-colors duration-300">
+              <div class="text-4xl md:text-5xl font-extrabold text-brand-blue mb-2">
+                <span class="counter" data-target="5" data-prefix="+">0</span><span class="text-brand-blue">Bi</span>
+              </div>
+              <div class="text-gray-500 text-sm font-medium tracking-wide uppercase">Faturamento Auditado por Ano</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAIN POINTS -->
+    <section class="py-14 md:py-28 bg-navy-dark relative overflow-hidden">
+      <!-- Background effects -->
+      <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-red-500/5 rounded-full blur-3xl"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+          <span class="inline-flex items-center gap-2 bg-red-500/10 text-red-400 text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-5 border border-red-500/20">
+            <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+            ATENÇÃO
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">Sua empresa está preparada para a próxima auditoria de certificação?</h2>
+          <p class="text-gray-400">Vulnerabilidades que podem comprometer sua certificação</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          <!-- Card 1 -->
+          <div class="reveal reveal-delay-1 group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-red-400/40 hover:bg-white/10 transition-all duration-400 hover:-translate-y-1.5 card-glow card-glow-red">
+            <div class="absolute top-0 left-6 w-8 h-1 bg-gradient-to-r from-red-500 to-orange-400 rounded-b-full"></div>
+            <div class="w-11 h-11 rounded-xl border border-red-500/30 bg-red-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Controles do Anexo A desatualizados</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">A ISO 27001:2022 trouxe mudanças significativas nos controles. Sua organização já se adaptou?</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="reveal reveal-delay-2 group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-red-400/40 hover:bg-white/10 transition-all duration-400 hover:-translate-y-1.5 card-glow card-glow-red">
+            <div class="absolute top-0 left-6 w-8 h-1 bg-gradient-to-r from-red-500 to-orange-400 rounded-b-full"></div>
+            <div class="w-11 h-11 rounded-xl border border-red-500/30 bg-red-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Análise de riscos defasada</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Ameaças cibernéticas evoluem rapidamente. Sua análise de riscos reflete o cenário atual?</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="reveal reveal-delay-3 group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-red-400/40 hover:bg-white/10 transition-all duration-400 hover:-translate-y-1.5 card-glow card-glow-red">
+            <div class="absolute top-0 left-6 w-8 h-1 bg-gradient-to-r from-red-500 to-orange-400 rounded-b-full"></div>
+            <div class="w-11 h-11 rounded-xl border border-red-500/30 bg-red-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Gaps entre LGPD e ISO 27001</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Muitas empresas não integram as exigências da LGPD ao SGSI, criando vulnerabilidades legais.</p>
+          </div>
+          <!-- Card 4 -->
+          <div class="reveal reveal-delay-4 group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-red-400/40 hover:bg-white/10 transition-all duration-400 hover:-translate-y-1.5 card-glow card-glow-red">
+            <div class="absolute top-0 left-6 w-8 h-1 bg-gradient-to-r from-red-500 to-orange-400 rounded-b-full"></div>
+            <div class="w-11 h-11 rounded-xl border border-red-500/30 bg-red-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Equipe de TI sem tempo para auditar</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">O time de segurança já está sobrecarregado com operação e incidentes.</p>
+          </div>
+          <!-- Card 5 -->
+          <div class="reveal reveal-delay-5 group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-red-400/40 hover:bg-white/10 transition-all duration-400 hover:-translate-y-1.5 card-glow card-glow-red md:col-span-2 lg:col-span-1">
+            <div class="absolute top-0 left-6 w-8 h-1 bg-gradient-to-r from-red-500 to-orange-400 rounded-b-full"></div>
+            <div class="w-11 h-11 rounded-xl border border-red-500/30 bg-red-500/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Documentação incompleta ou obsoleta</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Políticas, procedimentos e registros que não refletem a prática real.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="py-20 md:py-28 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="reveal">
+            <span class="inline-block bg-green-50 text-green-600 text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-4">A SOLUÇÃO</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">Auditoria Interna ISO 27001 com Foco em Resultado</h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              A Templum Validation realiza auditorias internas completas do seu Sistema de Gestão de Segurança da Informação. Avaliamos todos os controles do Anexo A (ISO 27001:2022), verificamos a eficácia do tratamento de riscos e identificamos gaps de conformidade — incluindo intersecções com LGPD.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+              Nosso relatório técnico vem com classificação de achados e plano de ação priorizado para que sua empresa chegue preparada na auditoria de recertificação.
+            </p>
+            <a href="#diagnostico" class="inline-flex items-center gap-2 mt-8 bg-yellow-cta text-gray-900 font-bold px-8 py-4 rounded-xl hover:bg-yellow-400 transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-yellow-400/25 btn-pulse">
+              FAZER DIAGNÓSTICO INICIAL
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="relative">
+              <div class="bg-white rounded-2xl shadow-2xl shadow-gray-200/60 p-6 border border-gray-100">
+                <div class="flex items-center gap-2 mb-5 pb-4 border-b border-gray-100">
+                  <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                  <span class="text-xs text-gray-400 ml-2">Relatório de Auditoria ISO 27001</span>
+                </div>
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-gray-700">Controles do Anexo A — <strong class="text-green-600">Conforme</strong></span>
+                  </div>
+                  <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-gray-700">Gestão de riscos — <strong class="text-green-600">Conforme</strong></span>
+                  </div>
+                  <div class="flex items-center gap-3 p-3 bg-yellow-50 rounded-lg">
+                    <svg class="w-5 h-5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.27 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+                    <span class="text-sm text-gray-700">Controle de acesso — <strong class="text-yellow-600">Oportunidade</strong></span>
+                  </div>
+                  <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-gray-700">Conformidade LGPD — <strong class="text-green-600">Conforme</strong></span>
+                  </div>
+                  <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+                    <svg class="w-5 h-5 text-brand-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    <span class="text-sm font-semibold text-brand-blue">Plano de ação gerado ✓</span>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute -top-3 -right-3 bg-green-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg shadow-green-500/30">
+                98% aprovação
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="py-14 md:py-28 bg-navy-dark relative overflow-hidden">
+      <!-- Background effects -->
+      <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+      <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-brand-blue/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-3xl"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+          <span class="inline-flex items-center gap-2 bg-white/10 text-cyan-400 text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-5 border border-white/10">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            BENEFÍCIOS
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">Por que escolher a Templum para Auditoria ISO 27001?</h2>
+          <p class="text-gray-400">Expertise comprovada em mais de <strong class="text-cyan-400">5.000 empresas</strong> atendidas</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div class="reveal reveal-delay-1 group">
+            <div class="relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 h-full hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-1 card-glow card-glow-blue overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-blue/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative z-10">
+                <div class="w-11 h-11 rounded-xl border border-cyan-400/30 bg-cyan-400/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Z"/></svg>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Especialistas em Segurança da Informação</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Auditores com experiência prática em SI, cibersegurança e privacidade de dados.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="reveal reveal-delay-2 group">
+            <div class="relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 h-full hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-1 card-glow card-glow-blue overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-blue/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative z-10">
+                <div class="w-11 h-11 rounded-xl border border-cyan-400/30 bg-cyan-400/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Avaliação Completa do Anexo A</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Verificação de todos os 93 controles da ISO 27001:2022, incluindo os novos requisitos.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="reveal reveal-delay-3 group">
+            <div class="relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 h-full hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-1 card-glow card-glow-blue overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-blue/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative z-10">
+                <div class="w-11 h-11 rounded-xl border border-cyan-400/30 bg-cyan-400/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Integração LGPD + ISO 27001</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Análise integrada que cobre conformidade com a Lei Geral de Proteção de Dados.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="reveal reveal-delay-1 group">
+            <div class="relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 h-full hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-1 card-glow card-glow-blue overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-blue/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative z-10">
+                <div class="w-11 h-11 rounded-xl border border-cyan-400/30 bg-cyan-400/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Relatório Técnico Detalhado</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Achados classificados por criticidade, com evidências e recomendações práticas.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="reveal reveal-delay-2 group">
+            <div class="relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 h-full hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-1 card-glow card-glow-blue overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-blue/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative z-10">
+                <div class="w-11 h-11 rounded-xl border border-cyan-400/30 bg-cyan-400/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"/></svg>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Plano de Ação Priorizado</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Roadmap de correções com responsáveis, prazos e custo-benefício de cada ação.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="reveal reveal-delay-3 group">
+            <div class="relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 h-full hover:border-green-400/30 transition-all duration-500 hover:-translate-y-1 card-glow card-glow-green overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-green-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="relative z-10">
+                <div class="w-11 h-11 rounded-xl border border-green-400/30 bg-green-400/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Acompanhamento Pós-Auditoria</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Suporte para implementação das ações corretivas e preparação para auditoria externa.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="como-funciona" class="py-20 md:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+          <span class="inline-block bg-blue-50 text-brand-blue text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-4">PROCESSO</span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Como funciona a Auditoria Interna ISO 27001?</h2>
+          <p class="text-gray-500">4 etapas para garantir a conformidade do seu SGSI</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+          <div class="reveal reveal-delay-1 text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-brand-blue text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-brand-blue/20">01</div>
+            <h3 class="font-bold text-gray-900 mb-2">Análise de Escopo</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Revisamos o escopo do SGSI, Declaração de Aplicabilidade (SoA) e certificados vigentes.</p>
+          </div>
+          <div class="reveal reveal-delay-2 text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-brand-blue text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-brand-blue/20">02</div>
+            <h3 class="font-bold text-gray-900 mb-2">Avaliação de Riscos</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Verificamos se a análise de riscos está atualizada e se os tratamentos são eficazes.</p>
+          </div>
+          <div class="reveal reveal-delay-3 text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-brand-blue text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-brand-blue/20">03</div>
+            <h3 class="font-bold text-gray-900 mb-2">Auditoria dos Controles</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Avaliamos cada controle do Anexo A aplicável, verificando implementação e eficácia.</p>
+          </div>
+          <div class="reveal reveal-delay-4 text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-green-500 text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-green-500/20">04</div>
+            <h3 class="font-bold text-gray-900 mb-2">Relatório + Plano de Ação</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Relatório com achados classificados e plano de ação com priorização de correções.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-20 md:py-28 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+          <span class="inline-block bg-blue-50 text-brand-blue text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-4">DEPOIMENTOS</span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">O que nossos clientes dizem</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="reveal reveal-delay-1 bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-1 mb-4">
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-600 text-sm mb-5 italic leading-relaxed">"A auditoria da Templum identificou vulnerabilidades no nosso controle de acesso que não tínhamos percebido. O relatório foi técnico, objetivo e o plano de ação nos ajudou a corrigir tudo antes da recertificação."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0"><span class="text-brand-blue font-bold text-sm">MO</span></div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Marcos Oliveira</div>
+                <div class="text-xs text-gray-500">CISO, FinTech Solutions</div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal reveal-delay-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-1 mb-4">
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-600 text-sm mb-5 italic leading-relaxed">"Precisávamos de uma auditoria que integrasse ISO 27001 e LGPD. A Templum entregou exatamente isso — com profundidade técnica e visão prática."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0"><span class="text-brand-blue font-bold text-sm">JS</span></div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Juliana Santos</div>
+                <div class="text-xs text-gray-500">DPO, DataHealth Corp</div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal reveal-delay-3 bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-1 mb-4">
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-600 text-sm mb-5 italic leading-relaxed">"Com a Templum, passamos de uma auditoria interna reativa para um processo estruturado e preventivo. A recertificação foi tranquila."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0"><span class="text-brand-blue font-bold text-sm">FC</span></div>
+              <div>
+                <div class="font-semibold text-sm text-gray-900">Fernando Costa</div>
+                <div class="text-xs text-gray-500">Diretor de TI, LogiSafe Ltda</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GARANTIA 200% -->
+    <section class="py-20 md:py-28 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <!-- Seal image -->
+          <div class="reveal relative flex justify-center">
+            <div class="relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/20 via-amber-300/10 to-orange-400/20 rounded-3xl blur-2xl scale-110"></div>
+              <img src="selo-garantia-200.png" alt="Selo Garantia 200% Templum" class="relative w-72 md:w-96 rounded-2xl shadow-2xl shadow-amber-400/20">
+            </div>
+          </div>
+          <!-- Text content -->
+          <div class="reveal reveal-delay-2">
+            <span class="inline-block text-orange-500 text-xs font-bold tracking-[0.15em] uppercase mb-4">Garantia Templum</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+              200% de Garantia<br>Contratual
+            </h2>
+            <p class="text-gray-600 text-lg leading-relaxed mb-8">
+              Se você não mantiver seu certificado enquanto for acompanhado pela Templum, devolvemos <strong class="text-gray-900">200% do valor investido</strong> (100% do valor pago e 100% pelo tempo dedicado).<br><span class="text-sm text-gray-400 mt-2 inline-block">Obs: Apenas para contratos de auditoria recorrente.</span>
+            </p>
+            <a href="#diagnostico" class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold px-8 py-4 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-orange-500/25">
+              Fazer diagnóstico inicial
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FORM -->
+    <section id="form" class="py-20 md:py-28 bg-navy-dark" style="display:none;">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 reveal">
+          <span class="inline-block bg-yellow-400/10 text-yellow-cta text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-4 border border-yellow-400/20">DIAGNÓSTICO GRATUITO</span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">Solicite Seu Diagnóstico de Segurança Gratuito</h2>
+          <p class="text-gray-400">Preencha o formulário e um especialista em segurança da informação entrará em contato em até 24 horas úteis para avaliar sua necessidade.</p>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="bg-white rounded-2xl p-8 md:p-10 shadow-2xl shadow-black/20">
+            <form id="lead-form" method="POST">
+              <div class="space-y-5">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-700 mb-1.5">Nome completo</label>
+                  <input type="text" id="name" name="name" placeholder="Seu nome completo" required autocomplete="name" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-brand-blue focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-200">
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">E-mail corporativo</label>
+                  <input type="email" id="email" name="email" placeholder="seu@empresa.com" required autocomplete="email" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-brand-blue focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-200">
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-gray-700 mb-1.5">Telefone / WhatsApp</label>
+                  <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required autocomplete="tel" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-brand-blue focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-200">
+                </div>
+                <div>
+                  <label for="company" class="block text-sm font-medium text-gray-700 mb-1.5">Nome da empresa</label>
+                  <input type="text" id="company" name="company" placeholder="Sua empresa" required autocomplete="organization" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:border-brand-blue focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-200">
+                </div>
+                <div>
+                  <label for="norma" class="block text-sm font-medium text-gray-700 mb-1.5">Norma de interesse</label>
+                  <select id="norma" name="norma" required class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-900 focus:border-brand-blue focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-200 bg-white">
+                    <option value="" disabled selected>Selecione a norma</option>
+                    <option value="ISO 27001" selected>ISO 27001</option>
+                    <option value="ISO 9001">ISO 9001</option>
+                    <option value="Ambas">Ambas</option>
+                    <option value="Outra">Outra</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Hidden UTMs -->
+              <input type="hidden" name="utm_source" data-field-id="utm_source">
+              <input type="hidden" name="utm_medium" data-field-id="utm_medium">
+              <input type="hidden" name="utm_campaign" data-field-id="utm_campaign">
+              <input type="hidden" name="utm_content" data-field-id="utm_content">
+              <input type="hidden" name="utm_term" data-field-id="utm_term">
+              <!-- Hidden Click IDs -->
+              <input type="hidden" name="gclid" data-field-id="gclid">
+              <input type="hidden" name="fbclid" data-field-id="fbclid">
+              <input type="hidden" name="gbraid" data-field-id="gbraid">
+              <input type="hidden" name="wbraid" data-field-id="wbraid">
+              <input type="hidden" name="ttclid" data-field-id="ttclid">
+              <input type="hidden" name="gad_campaignid" data-field-id="gad_campaignid">
+              <input type="hidden" name="gad_source" data-field-id="gad_source">
+              <input type="hidden" name="msclkid" data-field-id="msclkid">
+              <input type="hidden" name="li_fat_id" data-field-id="li_fat_id">
+              <input type="hidden" name="sck" data-field-id="sck">
+              <!-- Hidden Session -->
+              <input type="hidden" name="session_id" id="hidden_session_id">
+              <input type="hidden" name="landing_page" data-field-id="landing_page">
+              <input type="hidden" name="origin_page" data-field-id="origin_page">
+              <input type="hidden" name="session_attributes_encoded" data-field-id="session_attributes_encoded">
+
+              <button type="submit" class="w-full mt-6 bg-yellow-cta text-gray-900 font-bold py-4 px-6 rounded-xl text-lg hover:bg-yellow-400 transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-yellow-400/25 btn-pulse">
+                QUERO MEU DIAGNÓSTICO GRATUITO
+              </button>
+              <p class="text-center text-xs text-gray-400 mt-3">Seus dados estão protegidos. Não enviamos spam.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 md:py-28 bg-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+          <span class="inline-block bg-blue-50 text-brand-blue text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-4">FAQ</span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900">Perguntas Frequentes</h2>
+        </div>
+        <div class="space-y-0 reveal reveal-delay-1">
+          <div class="faq-item border-b border-gray-200">
+            <button class="faq-question w-full py-6 flex justify-between items-center gap-4 text-left cursor-pointer group" type="button">
+              <span class="font-semibold text-gray-900 group-hover:text-brand-blue transition-colors">O que é auditoria interna ISO 27001?</span>
+              <span class="faq-icon text-brand-blue text-2xl font-light flex-shrink-0 leading-none">+</span>
+            </button>
+            <div class="faq-answer"><div class="pb-6 text-gray-600 text-sm leading-relaxed">É uma avaliação independente do Sistema de Gestão de Segurança da Informação (SGSI) para verificar se os controles e processos estão em conformidade com a norma ISO 27001. É requisito obrigatório para manter a certificação.</div></div>
+          </div>
+          <div class="faq-item border-b border-gray-200">
+            <button class="faq-question w-full py-6 flex justify-between items-center gap-4 text-left cursor-pointer group" type="button">
+              <span class="font-semibold text-gray-900 group-hover:text-brand-blue transition-colors">O que mudou na ISO 27001:2022?</span>
+              <span class="faq-icon text-brand-blue text-2xl font-light flex-shrink-0 leading-none">+</span>
+            </button>
+            <div class="faq-answer"><div class="pb-6 text-gray-600 text-sm leading-relaxed">A versão 2022 reestruturou os controles do Anexo A, reduzindo de 114 para 93 controles, organizados em 4 temas (organizacionais, pessoas, físicos e tecnológicos). Também incluiu 11 novos controles, como Threat Intelligence e segurança em cloud.</div></div>
+          </div>
+          <div class="faq-item border-b border-gray-200">
+            <button class="faq-question w-full py-6 flex justify-between items-center gap-4 text-left cursor-pointer group" type="button">
+              <span class="font-semibold text-gray-900 group-hover:text-brand-blue transition-colors">A auditoria cobre LGPD também?</span>
+              <span class="faq-icon text-brand-blue text-2xl font-light flex-shrink-0 leading-none">+</span>
+            </button>
+            <div class="faq-answer"><div class="pb-6 text-gray-600 text-sm leading-relaxed">Sim. Nossa auditoria avalia a intersecção entre ISO 27001 e LGPD, verificando se os controles de privacidade e proteção de dados pessoais estão adequados. Oferecemos também o serviço de DPO as a Service como complemento.</div></div>
+          </div>
+          <div class="faq-item border-b border-gray-200">
+            <button class="faq-question w-full py-6 flex justify-between items-center gap-4 text-left cursor-pointer group" type="button">
+              <span class="font-semibold text-gray-900 group-hover:text-brand-blue transition-colors">Quanto tempo leva a auditoria ISO 27001?</span>
+              <span class="faq-icon text-brand-blue text-2xl font-light flex-shrink-0 leading-none">+</span>
+            </button>
+            <div class="faq-answer"><div class="pb-6 text-gray-600 text-sm leading-relaxed">Depende do escopo e complexidade do SGSI. Em média, de 3 a 7 dias para a execução, incluindo análise documental, entrevistas técnicas e verificação de controles. Apresentamos o cronograma completo na fase de planejamento.</div></div>
+          </div>
+          <div class="faq-item border-b border-gray-200">
+            <button class="faq-question w-full py-6 flex justify-between items-center gap-4 text-left cursor-pointer group" type="button">
+              <span class="font-semibold text-gray-900 group-hover:text-brand-blue transition-colors">Posso terceirizar a auditoria interna de segurança da informação?</span>
+              <span class="faq-icon text-brand-blue text-2xl font-light flex-shrink-0 leading-none">+</span>
+            </button>
+            <div class="faq-answer"><div class="pb-6 text-gray-600 text-sm leading-relaxed">Sim. A norma permite e até recomenda que a auditoria interna seja conduzida por profissionais independentes dos processos auditados. Terceirizar garante imparcialidade e profundidade técnica especializada.</div></div>
+          </div>
+          <div class="faq-item border-b border-gray-200">
+            <button class="faq-question w-full py-6 flex justify-between items-center gap-4 text-left cursor-pointer group" type="button">
+              <span class="font-semibold text-gray-900 group-hover:text-brand-blue transition-colors">O que acontece se eu não fizer a auditoria interna?</span>
+              <span class="faq-icon text-brand-blue text-2xl font-light flex-shrink-0 leading-none">+</span>
+            </button>
+            <div class="faq-answer"><div class="pb-6 text-gray-600 text-sm leading-relaxed">O organismo certificador pode identificar essa ausência como não conformidade maior na auditoria de manutenção ou recertificação, o que pode resultar em suspensão ou perda da certificação.</div></div>
+          </div>
+          <div class="faq-item border-b border-gray-200">
+            <button class="faq-question w-full py-6 flex justify-between items-center gap-4 text-left cursor-pointer group" type="button">
+              <span class="font-semibold text-gray-900 group-hover:text-brand-blue transition-colors">Vocês oferecem DPO as a Service?</span>
+              <span class="faq-icon text-brand-blue text-2xl font-light flex-shrink-0 leading-none">+</span>
+            </button>
+            <div class="faq-answer"><div class="pb-6 text-gray-600 text-sm leading-relaxed">Sim. Além da auditoria ISO 27001, oferecemos o serviço de Data Protection Officer (DPO) terceirizado para empresas que precisam atender à LGPD mas não têm um profissional dedicado internamente.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="py-16 md:py-20 bg-navy-dark relative overflow-hidden">
+      <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+      <div class="absolute -top-20 -right-20 w-[300px] h-[300px] bg-brand-blue/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-3xl"></div>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal relative z-10">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">Proteja sua certificação ISO 27001</h2>
+        <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Fale com nossos especialistas em segurança da informação e garanta a conformidade do seu SGSI.</p>
+        <a href="#diagnostico" class="inline-block bg-yellow-cta text-gray-900 font-bold px-10 py-4 rounded-xl hover:bg-yellow-400 transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-yellow-400/25 btn-pulse">
+          FAZER DIAGNÓSTICO INICIAL
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- MOBILE CHAT MODAL -->
+  <div id="mobile-chat-overlay" class="mobile-chat-overlay md:hidden" onclick="closeMobileChat()"></div>
+  <div id="mobile-chat-modal" class="mobile-chat-modal md:hidden">
+    <!-- Mobile Chat header -->
+    <div class="bg-brand-blue px-4 py-3 flex items-center gap-3 flex-shrink-0 safe-area-top">
+      <img src="avatar-especialista.jpeg" alt="Especialista Templum" class="w-9 h-9 rounded-full object-cover flex-shrink-0 border-2 border-white/30">
+      <div class="min-w-0 flex-1">
+        <div class="text-white font-semibold text-sm">Especialista Templum</div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-green-400 flex-shrink-0"></span>
+          <span class="text-white/80 text-xs">Online</span>
+        </div>
+      </div>
+      <div id="chat-progress-wrap-mobile" style="display:none;" class="mr-2">
+        <span id="chat-counter-mobile" class="text-xs text-white/80 bg-white/20 px-2.5 py-1 rounded-full font-medium"></span>
+      </div>
+      <button onclick="closeMobileChat()" class="text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors" aria-label="Fechar">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <!-- Mobile Chat messages -->
+    <div id="chat-messages-mobile" class="flex-1 overflow-y-auto p-4 space-y-3" style="background: #f0f2f5;"></div>
+    <!-- Mobile Start area -->
+    <div id="chat-start-area-mobile" class="p-3 border-t border-gray-100 bg-white flex-shrink-0 safe-area-bottom">
+      <button onclick="startChatMobile()" class="w-full bg-brand-blue text-white font-bold py-3 rounded-xl hover:bg-blue-800 transition-all btn-pulse shadow-lg shadow-brand-blue/25 text-sm">
+        COMEÇAR DIAGNÓSTICO GRATUITO
+      </button>
+    </div>
+    <!-- Mobile Options area (hidden initially) -->
+    <div id="chat-options-area-mobile" class="hidden p-3 border-t border-gray-100 bg-white flex-shrink-0 max-h-[200px] overflow-y-auto safe-area-bottom">
+      <div id="chat-options-mobile" class="space-y-2"></div>
+    </div>
+    <!-- Mobile Result CTA area (hidden initially) -->
+    <div id="chat-cta-area-mobile" class="hidden p-3 border-t border-gray-100 bg-white flex-shrink-0 safe-area-bottom">
+      <a href="#form" onclick="closeMobileChat()" class="block w-full bg-yellow-cta text-gray-900 font-bold py-3 rounded-xl text-center hover:bg-yellow-400 transition-all text-sm btn-pulse shadow-lg shadow-yellow-400/25">
+        RECEBER RELATÓRIO COMPLETO
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="py-8 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm text-gray-400">&copy; 2026 Templum Consultoria. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- TRACKING SCRIPT -->
+  <script>
+  (function() {
+    var DOMAIN      = '.templfrrodrigosouza.com';
+    var MAX_AGE     = 63072000;
+    var WEBHOOK_URL = 'https://n8n.DOMINIO.com/webhook/CONFIGURAR';
+
+    var utms   = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    var clicks = ['gclid','gbraid','wbraid','fbclid','ttclid','gad_campaignid','gad_source','msclkid','li_fat_id','twclid','sck'];
+
+    function getCookie(name) {
+      var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+    function setCookie(name, value) {
+      document.cookie = name + '=' + encodeURIComponent(value) + ';max-age=' + MAX_AGE + ';path=/;domain=' + DOMAIN + ';SameSite=None;Secure';
+    }
+    function setCookieFirstTouch(name, value) {
+      if (getCookie(name)) return;
+      setCookie(name, value);
+    }
+    function getParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+    function isInternalReferrer(referrer) {
+      if (!referrer) return false;
+      try {
+        var ref = new URL(referrer).hostname;
+        var cur = window.location.hostname;
+        return ref === cur || ref.endsWith('.' + cur.replace('www.','')) || cur.endsWith('.' + ref.replace('www.',''));
+      } catch(e) { return false; }
+    }
+
+    var sessionId = (function() {
+      try {
+        var key = 'lp_session_id';
+        var s = sessionStorage.getItem(key);
+        if (!s) { s = Date.now() + '_' + Math.random().toString(36).substr(2, 9); sessionStorage.setItem(key, s); }
+        return s;
+      } catch(e) { return Date.now() + '_' + Math.random().toString(36).substr(2, 9); }
+    })();
+
+    var referrerMap = {
+      'google.com': { utm_source: 'google', utm_medium: 'organic' },
+      'bing.com': { utm_source: 'bing', utm_medium: 'organic' },
+      'yahoo.com': { utm_source: 'yahoo', utm_medium: 'organic' },
+      'duckduckgo.com': { utm_source: 'duckduckgo', utm_medium: 'organic' },
+      'yandex.com': { utm_source: 'yandex', utm_medium: 'organic' },
+      'instagram.com': { utm_source: 'instagram', utm_medium: 'organic' },
+      'youtube.com': { utm_source: 'youtube', utm_medium: 'organic' },
+      'facebook.com': { utm_source: 'facebook', utm_medium: 'organic' },
+      'twitter.com': { utm_source: 'twitter', utm_medium: 'organic' },
+      'x.com': { utm_source: 'twitter', utm_medium: 'organic' },
+      'linkedin.com': { utm_source: 'linkedin', utm_medium: 'organic' },
+      'tiktok.com': { utm_source: 'tiktok', utm_medium: 'organic' },
+      'pinterest.com': { utm_source: 'pinterest', utm_medium: 'organic' },
+      'whatsapp.com': { utm_source: 'whatsapp', utm_medium: 'organic' },
+      'telegram.org': { utm_source: 'telegram', utm_medium: 'organic' },
+      'reddit.com': { utm_source: 'reddit', utm_medium: 'organic' },
+      'chat.openai.com': { utm_source: 'chatgpt', utm_medium: 'ai' },
+      'chatgpt.com': { utm_source: 'chatgpt', utm_medium: 'ai' },
+      'gemini.google.com': { utm_source: 'gemini', utm_medium: 'ai' },
+      'claude.ai': { utm_source: 'claude', utm_medium: 'ai' },
+      'poe.com': { utm_source: 'poe', utm_medium: 'ai' },
+      'wikipedia.org': { utm_source: 'wikipedia', utm_medium: 'referral' },
+      'github.com': { utm_source: 'github', utm_medium: 'referral' }
+    };
+
+    var hasUtmInUrl = utms.some(function(p) { return !!getParam(p); });
+    if (hasUtmInUrl) {
+      utms.forEach(function(p) { setCookieFirstTouch(p, getParam(p) || ''); });
+    } else {
+      var referrer = document.referrer || '';
+      if (referrer && !isInternalReferrer(referrer)) {
+        for (var domain in referrerMap) {
+          if (referrer.indexOf(domain) !== -1) {
+            var map = referrerMap[domain];
+            utms.forEach(function(p) { setCookieFirstTouch(p, map[p] || ''); });
+            break;
+          }
+        }
+      }
+    }
+
+    clicks.forEach(function(p) { var val = getParam(p); if (val) setCookieFirstTouch(p, val); });
+
+    var fbclid = getParam('fbclid');
+    if (fbclid && !getCookie('_fbc')) { setCookie('_fbc', 'fb.1.' + Date.now() + '.' + fbclid); }
+
+    if (!getCookie('first_visit')) setCookie('first_visit', new Date().toISOString());
+    if (!getCookie('landing_page')) setCookie('landing_page', window.location.href);
+    if (!getCookie('origin_page')) {
+      var originRef = document.referrer || '';
+      if (originRef && !isInternalReferrer(originRef)) setCookie('origin_page', originRef);
+    }
+
+    var refParam = getParam('ref');
+    if (refParam && !getCookie('ref')) setCookie('ref', refParam);
+    setCookie('user_agent', navigator.userAgent);
+
+    var sessionAttrs = {
+      utm_source: getCookie('utm_source') || '', utm_medium: getCookie('utm_medium') || '',
+      utm_campaign: getCookie('utm_campaign') || '', utm_content: getCookie('utm_content') || '',
+      utm_term: getCookie('utm_term') || '', gclid: getCookie('gclid') || '',
+      fbclid: getCookie('fbclid') || '', ttclid: getCookie('ttclid') || '',
+      msclkid: getCookie('msclkid') || '', landing_page: getCookie('landing_page') || '',
+      origin_page: getCookie('origin_page') || '', first_visit: getCookie('first_visit') || '',
+      ref: getCookie('ref') || ''
+    };
+    try { setCookie('session_attributes_encoded', btoa(JSON.stringify(sessionAttrs))); } catch(e) {}
+
+    utms.concat(clicks).forEach(function(p) {
+      var val = getCookie(p); if (!val) return;
+      document.querySelectorAll('input[name="' + p + '"], input[data-field-id="' + p + '"]').forEach(function(f) { f.value = val; });
+    });
+    var sessionIdInput = document.getElementById('hidden_session_id');
+    if (sessionIdInput) sessionIdInput.value = sessionId;
+    var lpInput = document.querySelector('input[data-field-id="landing_page"]');
+    if (lpInput) lpInput.value = getCookie('landing_page') || window.location.href;
+    var opInput = document.querySelector('input[data-field-id="origin_page"]');
+    if (opInput) opInput.value = getCookie('origin_page') || document.referrer || '';
+    var saeInput = document.querySelector('input[data-field-id="session_attributes_encoded"]');
+    if (saeInput) saeInput.value = getCookie('session_attributes_encoded') || '';
+
+    window.dataLayer = window.dataLayer || [];
+    var dl = {};
+    utms.concat(clicks).forEach(function(p) { var val = getCookie(p); if (val) dl['ft_' + p] = val; });
+    utms.forEach(function(p) {
+      var fromUrl = getParam(p);
+      if (fromUrl) { dl[p] = fromUrl; } else {
+        var ref = document.referrer; var detected = null;
+        if (ref) { for (var d in referrerMap) { if (ref.indexOf(d) !== -1) { detected = referrerMap[d]; break; } } }
+        if (detected && p === 'utm_source') dl[p] = detected.utm_source;
+        else if (detected && p === 'utm_medium') dl[p] = detected.utm_medium;
+        else dl[p] = getCookie(p) || '';
+      }
+    });
+    clicks.forEach(function(p) { dl[p] = getParam(p) || getCookie(p) || ''; });
+    dl.session_id = sessionId;
+    dl.landing_page = getCookie('landing_page') || '';
+    dl.origin_page = getCookie('origin_page') || '';
+    dl.first_visit = getCookie('first_visit') || '';
+    dl.ref = getCookie('ref') || '';
+    dl.user_agent = navigator.userAgent;
+    dl.session_attributes_encoded = getCookie('session_attributes_encoded') || '';
+    if (Object.keys(dl).length) window.dataLayer.push(dl);
+
+    window.dataLayer.push({
+      event: 'custom_page_view', session_id: sessionId,
+      page_url: window.location.href, page_path: window.location.pathname,
+      page_hostname: window.location.hostname, referrer: document.referrer || ''
+    });
+
+    // Scroll Depth
+    (function() {
+      var milestones = [25,50,75,90], reached = {}, pageStart = Date.now();
+      function getScrollPercent() {
+        var doc = document.documentElement, body = document.body;
+        var scrollTop = doc.scrollTop || body.scrollTop;
+        var scrollHeight = Math.max(doc.scrollHeight, body.scrollHeight) - doc.clientHeight;
+        return scrollHeight <= 0 ? 100 : Math.round((scrollTop / scrollHeight) * 100);
+      }
+      window.addEventListener('scroll', function() {
+        var pct = getScrollPercent();
+        milestones.forEach(function(m) {
+          if (!reached[m] && pct >= m) {
+            reached[m] = true;
+            window.dataLayer.push({ event: 'scroll_depth', session_id: sessionId, scroll_depth: m, time_on_page: Math.round((Date.now() - pageStart) / 1000), page_path: window.location.pathname });
+          }
+        });
+      }, { passive: true });
+    })();
+
+    // Heartbeat
+    (function() {
+      var pageStart = Date.now(), heartbeatCount = 0;
+      document.addEventListener('submit', function() {
+        window.dataLayer.push({ session_id: sessionId, time_on_page_at_submit: Math.round((Date.now() - pageStart) / 1000) });
+      }, true);
+      var hb = setInterval(function() {
+        heartbeatCount++;
+        window.dataLayer.push({ event: 'time_on_page_heartbeat', session_id: sessionId, time_on_page: Math.round((Date.now() - pageStart) / 1000), heartbeat: heartbeatCount, page_path: window.location.pathname });
+        if (heartbeatCount >= 20) clearInterval(hb);
+      }, 30000);
+    })();
+
+    // Form Submit
+    var form = document.getElementById('lead-form');
+    if (form) {
+      var formPageStart = Date.now();
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var originalText = btn.textContent;
+        btn.textContent = 'Enviando...'; btn.disabled = true;
+
+        var nameField = form.querySelector('input[name="name"]');
+        var emailField = form.querySelector('input[name="email"]');
+        var phoneField = form.querySelector('input[name="phone"]');
+        var leadName = nameField ? nameField.value.trim() : '';
+        var leadEmail = emailField ? emailField.value.trim() : '';
+        var leadPhone = phoneField ? phoneField.value.trim().replace(/\D/g, '') : '';
+        var nameParts = leadName.split(' ');
+        var firstName = nameParts[0] || '';
+        var lastName = nameParts.slice(1).join(' ') || '';
+
+        window.dataLayer.push({
+          event: 'form_submit', session_id: sessionId, lead_name: leadName, lead_email: leadEmail,
+          lead_phone: leadPhone, lead_first_name: firstName, lead_last_name: lastName,
+          time_on_page_at_submit: Math.round((Date.now() - formPageStart) / 1000)
+        });
+
+        var formData = new FormData(form);
+        var payload = {};
+        formData.forEach(function(value, key) { if (value) payload[key] = value; });
+        payload.first_name = firstName; payload.last_name = lastName;
+        payload.session_id = sessionId; payload.page_url = window.location.href;
+        payload.page_path = window.location.pathname; payload.referrer = document.referrer || '';
+        payload.submitted_at = new Date().toISOString();
+        // Include quiz data
+        if (window.quizData) {
+          payload.quiz_score = window.quizData.score;
+          payload.quiz_level = window.quizData.level;
+          payload.quiz_answers = window.quizData.answers;
+        }
+
+        // Try to send webhook (fire and forget)
+        fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(function() {});
+
+        // Always show raio-x after brief delay
+        setTimeout(function() { showRaioX(form, firstName); }, 800);
+      });
+    }
+
+    function showRaioX(form, firstName) {
+      var qd = window.quizData;
+      var formContainer = form.closest('.bg-white.rounded-2xl');
+      if (!formContainer) formContainer = form.parentElement;
+
+      // Determine colors and labels
+      var score = qd ? qd.score : 0;
+      var level = qd ? qd.level : 'Risco Baixo';
+      var answers = qd ? qd.answers : [];
+      var topRisks = qd ? qd.topRisks : [];
+
+      var mainColor, mainBg, icon;
+      if (score <= 30) {
+        mainColor = '#22c55e'; mainBg = '#f0fdf4'; icon = '✅';
+      } else if (score <= 60) {
+        mainColor = '#eab308'; mainBg = '#fefce8'; icon = '⚠️';
+      } else {
+        mainColor = '#ef4444'; mainBg = '#fef2f2'; icon = '🚨';
+      }
+
+      // Build raio-x items from all answers
+      var itemsHtml = '';
+      answers.forEach(function(a, idx) {
+        var iColor, iBg, iIcon, iLabel;
+        if (a.points <= 3) {
+          iColor = '#16a34a'; iBg = '#f0fdf4'; iIcon = '✓'; iLabel = 'OK';
+        } else if (a.points <= 6) {
+          iColor = '#ca8a04'; iBg = '#fefce8'; iIcon = '!'; iLabel = 'Atenção';
+        } else {
+          iColor = '#dc2626'; iBg = '#fef2f2'; iIcon = '✕'; iLabel = 'Crítico';
+        }
+        // Shorten question text
+        var qText = a.question.replace(/\?$/, '');
+        if (qText.length > 60) qText = qText.substring(0, 57) + '...';
+
+        itemsHtml += '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:' + iBg + ';border-radius:10px;border:1px solid ' + iColor + '20;">' +
+          '<div style="width:28px;height:28px;border-radius:50%;background:' + iColor + ';color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">' + iIcon + '</div>' +
+          '<div style="flex:1;min-width:0;">' +
+          '<div style="font-size:12px;color:#374151;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + qText + '</div>' +
+          '<div style="font-size:11px;color:' + iColor + ';font-weight:600;">' + iLabel + ' — ' + a.answer + '</div>' +
+          '</div>' +
+          '<div style="font-size:11px;font-weight:700;color:' + iColor + ';flex-shrink:0;">' + a.points + '/10</div>' +
+          '</div>';
+      });
+
+      // Gauge SVG
+      var circumference = 2 * Math.PI * 45;
+      var gaugeOffset = circumference - (Math.min(score, 100) / 100) * circumference;
+
+      var html = '<div class="form-success" style="padding:8px 0;">' +
+        '<div style="text-align:center;margin-bottom:20px;">' +
+        '<div style="font-size:14px;color:#6b7280;margin-bottom:4px;">Raio-X da sua certificação' + (firstName ? ', ' + firstName : '') + '</div>' +
+        '<h3 style="font-size:22px;font-weight:800;color:#1f2937;margin-bottom:16px;">Mapa de Gaps — ISO 27001</h3>' +
+        // Gauge
+        '<div style="position:relative;width:120px;height:120px;margin:0 auto 8px;">' +
+        '<svg width="120" height="120" viewBox="0 0 120 120" style="transform:rotate(-90deg);">' +
+        '<circle cx="60" cy="60" r="45" stroke="#e5e7eb" stroke-width="10" fill="none"/>' +
+        '<circle id="rx-gauge" cx="60" cy="60" r="45" stroke="' + mainColor + '" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" style="transition: stroke-dashoffset 1.5s ease-out;"/>' +
+        '</svg>' +
+        '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">' +
+        '<span id="rx-num" style="font-size:28px;font-weight:800;color:#1f2937;">0</span>' +
+        '<span style="font-size:10px;color:#9ca3af;">pontos</span>' +
+        '</div></div>' +
+        '<div style="display:inline-block;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;background:' + mainBg + ';color:' + mainColor + ';">' + icon + ' ' + level + '</div>' +
+        '</div>' +
+        // Items
+        '<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:20px;max-height:340px;overflow-y:auto;padding-right:4px;">' + itemsHtml + '</div>' +
+        // Message
+        '<div style="background:linear-gradient(135deg,#eff6ff,#f0fdf4);border-radius:12px;padding:16px;text-align:center;border:1px solid #bfdbfe;">' +
+        '<div style="font-size:20px;margin-bottom:6px;">📋</div>' +
+        '<div style="font-size:14px;font-weight:700;color:#1f2937;margin-bottom:4px;">Relatório completo sendo gerado!</div>' +
+        '<div style="font-size:13px;color:#4b5563;line-height:1.5;">Um de nossos <strong>especialistas</strong> vai entrar em contato para apresentar o diagnóstico detalhado e um plano de ação personalizado para sua empresa.</div>' +
+        '</div>' +
+        // Guarantee
+        '<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid #e5e7eb;">' +
+        '<img src="selo-garantia-200.png" alt="200% Garantia" style="width:36px;height:36px;">' +
+        '<span style="font-size:11px;color:#6b7280;">200% de garantia contratual na auditoria recorrente</span>' +
+        '</div>' +
+        '</div>';
+
+      formContainer.innerHTML = html;
+
+      // Animate gauge
+      setTimeout(function() {
+        var g = document.getElementById('rx-gauge');
+        if (g) g.setAttribute('stroke-dashoffset', gaugeOffset);
+        var n = document.getElementById('rx-num');
+        if (n) {
+          var dur = 1500, st = null;
+          function an(ts) {
+            if (!st) st = ts;
+            var p = Math.min((ts - st) / dur, 1);
+            n.textContent = Math.floor(p * score);
+            if (p < 1) requestAnimationFrame(an); else n.textContent = score;
+          }
+          requestAnimationFrame(an);
+        }
+      }, 100);
+    }
+
+    // Phone mask
+    var phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+      phoneInput.addEventListener('input', function(e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+      });
+    }
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.parentElement;
+        var wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+
+    // Scroll Reveal
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+    // Highlight chat widget when CTA is clicked
+    document.querySelectorAll('a[href="#diagnostico"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var diagWrap = document.getElementById('diagnostico');
+        if (diagWrap) {
+          diagWrap.classList.add('chat-highlight');
+          setTimeout(function() { diagWrap.classList.remove('chat-highlight'); }, 5000);
+        }
+      });
+    });
+
+    // Counter Animation
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+    var counterObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        if (el.dataset.animated) return;
+        el.dataset.animated = 'true';
+        var target = parseInt(el.dataset.target);
+        var prefix = el.dataset.prefix || '';
+        var suffix = el.dataset.suffix || '';
+        var duration = 2000, startTime = null;
+        function animate(now) {
+          if (!startTime) startTime = now;
+          var progress = Math.min((now - startTime) / duration, 1);
+          el.textContent = prefix + Math.floor(easeOutCubic(progress) * target).toLocaleString('pt-BR') + suffix;
+          if (progress < 1) requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.counter').forEach(function(el) { counterObserver.observe(el); });
+
+    // Chat Quiz Diagnóstico ISO 27001
+    (function() {
+      var chatMessages = document.getElementById('chat-messages');
+      var chatStartArea = document.getElementById('chat-start-area');
+      var chatOptionsArea = document.getElementById('chat-options-area');
+      var chatOptions = document.getElementById('chat-options');
+      var chatCtaArea = document.getElementById('chat-cta-area');
+      var chatProgressWrap = document.getElementById('chat-progress-wrap');
+      var chatCounter = document.getElementById('chat-counter');
+      if (!chatMessages) return;
+
+      var quizQuestions = [
+        {
+          q: 'Quando foi a última auditoria interna do SGSI realizada na sua empresa?',
+          opts: [
+            { text: 'Menos de 6 meses', pts: 0 },
+            { text: 'Entre 6 e 12 meses', pts: 4 },
+            { text: 'Mais de 12 meses', pts: 8 },
+            { text: 'Nunca realizamos ou não sei', pts: 10 }
+          ]
+        },
+        {
+          q: 'Seu SGSI já está adequado à ISO 27001:2022?',
+          opts: [
+            { text: 'Sim, já migramos para a versão 2022', pts: 0 },
+            { text: 'Estamos em processo de transição', pts: 4 },
+            { text: 'Ainda estamos na versão 2013', pts: 8 },
+            { text: 'Não sei qual versão seguimos', pts: 10 }
+          ]
+        },
+        {
+          q: 'Sua análise de riscos de segurança da informação está atualizada?',
+          opts: [
+            { text: 'Sim, revisamos pelo menos anualmente', pts: 0 },
+            { text: 'Última revisão foi há mais de 1 ano', pts: 5 },
+            { text: 'Fizemos apenas para a certificação inicial', pts: 8 },
+            { text: 'Não temos análise de riscos formal', pts: 10 }
+          ]
+        },
+        {
+          q: 'Sua Declaração de Aplicabilidade (SoA) reflete os controles efetivamente implementados?',
+          opts: [
+            { text: 'Sim, revisamos e atualizamos regularmente', pts: 0 },
+            { text: 'Está parcialmente atualizada', pts: 5 },
+            { text: 'Não revisamos desde a certificação', pts: 8 },
+            { text: 'Não sei o que é a SoA', pts: 10 }
+          ]
+        },
+        {
+          q: 'Sua empresa tem um processo estruturado de gestão de incidentes de segurança?',
+          opts: [
+            { text: 'Sim, com registro, análise e resposta documentados', pts: 0 },
+            { text: 'Temos procedimento, mas nem sempre é seguido', pts: 5 },
+            { text: 'Reagimos caso a caso, sem processo formal', pts: 8 },
+            { text: 'Não temos processo de gestão de incidentes', pts: 10 }
+          ]
+        },
+        {
+          q: 'Colaboradores receberam treinamento em segurança da informação nos últimos 12 meses?',
+          opts: [
+            { text: 'Sim, temos programa contínuo de conscientização', pts: 0 },
+            { text: 'Fizemos treinamento pontual', pts: 4 },
+            { text: 'Apenas na integração de novos colaboradores', pts: 7 },
+            { text: 'Não houve treinamento', pts: 10 }
+          ]
+        },
+        {
+          q: 'Os controles de proteção de dados pessoais estão integrados ao SGSI?',
+          opts: [
+            { text: 'Sim, LGPD e ISO 27001 estão totalmente integrados', pts: 0 },
+            { text: 'Parcialmente — alguns controles cobrem LGPD', pts: 5 },
+            { text: 'LGPD e SGSI são tratados separadamente', pts: 8 },
+            { text: 'Não temos adequação à LGPD', pts: 10 }
+          ]
+        },
+        {
+          q: 'Como é gerenciado o controle de acesso aos sistemas e informações críticas?',
+          opts: [
+            { text: 'Política formal com revisão periódica de acessos', pts: 0 },
+            { text: 'Temos controle, mas sem revisão regular', pts: 5 },
+            { text: 'Controle básico, sem política documentada', pts: 8 },
+            { text: 'Não temos controle formal de acessos', pts: 10 }
+          ]
+        },
+        {
+          q: 'Quando é sua próxima auditoria de manutenção ou recertificação?',
+          opts: [
+            { text: 'Em mais de 6 meses', pts: 0 },
+            { text: 'Nos próximos 3 a 6 meses', pts: 5 },
+            { text: 'Nos próximos 3 meses', pts: 8 },
+            { text: 'Não sei / já está atrasada', pts: 10 }
+          ]
+        },
+        {
+          q: 'Quem realiza as auditorias internas do SGSI na sua empresa?',
+          opts: [
+            { text: 'Empresa terceirizada especializada em SI', pts: 0 },
+            { text: 'Auditor interno qualificado e independente', pts: 3 },
+            { text: 'Equipe de TI faz autoavaliação', pts: 7 },
+            { text: 'Não temos auditor definido', pts: 10 }
+          ]
+        }
+      ];
+
+      var currentQ = 0;
+      var totalScore = 0;
+      var answers = [];
+      var startTime = null;
+
+      function scrollChat() {
+        setTimeout(function() { chatMessages.scrollTop = chatMessages.scrollHeight; }, 50);
+      }
+
+      function addTyping() {
+        var div = document.createElement('div');
+        div.id = 'typing-indicator';
+        div.innerHTML = '<div class="chat-typing"><span></span><span></span><span></span></div>';
+        chatMessages.appendChild(div);
+        scrollChat();
+      }
+
+      function removeTyping() {
+        var t = document.getElementById('typing-indicator');
+        if (t) t.remove();
+      }
+
+      function addBotMsg(text) {
+        removeTyping();
+        var div = document.createElement('div');
+        div.innerHTML = '<div class="chat-bubble-bot">' + text + '</div>';
+        chatMessages.appendChild(div);
+        scrollChat();
+      }
+
+      function addUserMsg(text) {
+        var div = document.createElement('div');
+        div.className = 'flex justify-end';
+        div.innerHTML = '<div class="chat-bubble-user">' + text + '</div>';
+        chatMessages.appendChild(div);
+        scrollChat();
+      }
+
+      function showOptions(opts) {
+        chatOptionsArea.classList.remove('hidden');
+        chatOptions.innerHTML = '';
+        opts.forEach(function(opt, i) {
+          var btn = document.createElement('button');
+          btn.className = 'chat-option-btn';
+          btn.textContent = opt.text;
+          btn.onclick = function() { selectAnswer(i); };
+          chatOptions.appendChild(btn);
+        });
+        scrollChat();
+      }
+
+      function hideOptions() {
+        chatOptionsArea.classList.add('hidden');
+        chatOptions.innerHTML = '';
+      }
+
+      function selectAnswer(idx) {
+        var q = quizQuestions[currentQ];
+        var opt = q.opts[idx];
+        hideOptions();
+        addUserMsg(opt.text);
+        totalScore += opt.pts;
+        answers.push({ question: q.q, answer: opt.text, points: opt.pts });
+        currentQ++;
+
+        if (currentQ < quizQuestions.length) {
+          chatCounter.textContent = (currentQ + 1) + '/10';
+          setTimeout(function() {
+            addTyping();
+            setTimeout(function() {
+              addBotMsg(quizQuestions[currentQ].q);
+              showOptions(quizQuestions[currentQ].opts);
+            }, 800);
+          }, 400);
+        } else {
+          setTimeout(function() {
+            addTyping();
+            setTimeout(function() {
+              addBotMsg('Analisando suas respostas...');
+              setTimeout(function() {
+                addTyping();
+                setTimeout(function() { showResult(); }, 1000);
+              }, 600);
+            }, 1000);
+          }, 400);
+        }
+      }
+
+      function showResult() {
+        removeTyping();
+        var level, color, colorBg, icon, title, text;
+        if (totalScore <= 30) {
+          level = 'Risco Baixo'; color = '#22c55e'; colorBg = '#f0fdf4'; icon = '✅';
+          title = 'Seu SGSI Está Bem Estruturado';
+          text = 'Sua empresa demonstra maturidade na gestão de segurança da informação. Uma auditoria independente pode revelar oportunidades de melhoria.';
+        } else if (totalScore <= 60) {
+          level = 'Risco Moderado'; color = '#eab308'; colorBg = '#fefce8'; icon = '⚠️';
+          title = 'Gaps Identificados';
+          text = 'Existem vulnerabilidades no seu SGSI que podem gerar não conformidades na próxima auditoria. Controles desatualizados são os maiores riscos.';
+        } else {
+          level = 'Risco Alto'; color = '#ef4444'; colorBg = '#fef2f2'; icon = '🚨';
+          title = 'Sua Certificação Está em Perigo';
+          text = 'Vários requisitos críticos da ISO 27001 apresentam gaps significativos. O risco de não conformidades maiores é real. Com o plano certo, é possível corrigir a rota.';
+        }
+
+        var sorted = answers.slice().sort(function(a, b) { return b.points - a.points; });
+        var topRisks = sorted.slice(0, 3).filter(function(a) { return a.points > 0; });
+        var risksHtml = '';
+        if (topRisks.length > 0) {
+          risksHtml = '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #e5e7eb;"><div style="font-size:11px;font-weight:600;color:#6b7280;margin-bottom:6px;">MAIORES RISCOS:</div>';
+          topRisks.forEach(function(r) {
+            risksHtml += '<div style="font-size:11px;color:#374151;padding:3px 0;">• ' + r.question.replace(/\?$/, '') + '</div>';
+          });
+          risksHtml += '</div>';
+        }
+
+        var gaugePercent = Math.min(totalScore, 100);
+        var circumference = 2 * Math.PI * 40;
+        var offset = circumference - (gaugePercent / 100) * circumference;
+
+        var resultHtml = '<div class="chat-result-card">' +
+          '<div style="text-align:center;">' +
+          '<div style="position:relative;width:100px;height:100px;margin:0 auto 12px;">' +
+          '<svg width="100" height="100" viewBox="0 0 100 100" style="transform:rotate(-90deg);">' +
+          '<circle cx="50" cy="50" r="40" stroke="#e5e7eb" stroke-width="8" fill="none"/>' +
+          '<circle id="gauge-anim" cx="50" cy="50" r="40" stroke="' + color + '" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" style="transition: stroke-dashoffset 1.5s ease-out;"/>' +
+          '</svg>' +
+          '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">' +
+          '<span id="gauge-num" style="font-size:24px;font-weight:800;color:#1f2937;">0</span>' +
+          '</div></div>' +
+          '<div style="display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;background:' + colorBg + ';color:' + color + ';margin-bottom:8px;">' + icon + ' ' + level + '</div>' +
+          '<div style="font-size:14px;font-weight:700;color:#1f2937;margin-bottom:6px;">' + title + '</div>' +
+          '<div style="font-size:12px;color:#6b7280;line-height:1.5;">' + text + '</div>' +
+          risksHtml +
+          '</div></div>';
+
+        var div = document.createElement('div');
+        div.innerHTML = resultHtml;
+        chatMessages.appendChild(div);
+        scrollChat();
+
+        setTimeout(function() {
+          var gaugeEl = document.getElementById('gauge-anim');
+          if (gaugeEl) gaugeEl.setAttribute('stroke-dashoffset', offset);
+          var numEl = document.getElementById('gauge-num');
+          var start = 0;
+          var duration = 1500;
+          var startTs = null;
+          function animNum(ts) {
+            if (!startTs) startTs = ts;
+            var prog = Math.min((ts - startTs) / duration, 1);
+            numEl.textContent = Math.floor(prog * totalScore);
+            if (prog < 1) requestAnimationFrame(animNum);
+            else numEl.textContent = totalScore;
+          }
+          requestAnimationFrame(animNum);
+        }, 100);
+
+        chatCtaArea.classList.remove('hidden');
+
+        // Reveal form section
+        var formSection = document.getElementById('form');
+        if (formSection) {
+          formSection.style.display = '';
+          formSection.style.opacity = '0';
+          formSection.style.transform = 'translateY(30px)';
+          formSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          setTimeout(function() { formSection.style.opacity = '1'; formSection.style.transform = 'translateY(0)'; }, 50);
+        }
+
+        var elapsed = startTime ? Math.round((Date.now() - startTime) / 1000) : 0;
+        // Expose quiz data for form raio-x
+        window.quizData = { score: totalScore, level: level, answers: answers, topRisks: sorted.slice(0, 3).filter(function(a) { return a.points > 0; }) };
+        if (window.dataLayer) {
+          window.dataLayer.push({
+            event: 'quiz_completed',
+            quiz_type: 'ISO 27001',
+            quiz_score: totalScore,
+            quiz_level: level,
+            quiz_time_seconds: elapsed,
+            quiz_answers: answers
+          });
+        }
+      }
+
+      // Welcome messages on load
+      setTimeout(function() { addTyping(); }, 500);
+      setTimeout(function() { addBotMsg('Olá! 👋 Sou o assistente de diagnóstico da Templum.'); }, 1500);
+      setTimeout(function() { addTyping(); }, 2000);
+      setTimeout(function() { addBotMsg('Vou avaliar os riscos da sua certificação <strong>ISO 27001</strong> em apenas 10 perguntas rápidas. Leva menos de 2 minutos!'); }, 3000);
+
+      window.startChat = function() {
+        startTime = Date.now();
+        chatStartArea.style.display = 'none';
+        chatProgressWrap.style.display = '';
+        chatCounter.textContent = '1/10';
+        addUserMsg('Quero começar o diagnóstico!');
+        setTimeout(function() {
+          addTyping();
+          setTimeout(function() {
+            addBotMsg(quizQuestions[0].q);
+            showOptions(quizQuestions[0].opts);
+          }, 800);
+        }, 400);
+      };
+    })();
+
+    // Mobile Chat Quiz (mirrors desktop quiz for mobile fullscreen modal)
+    (function() {
+      var chatMessages = document.getElementById('chat-messages-mobile');
+      var chatStartArea = document.getElementById('chat-start-area-mobile');
+      var chatOptionsArea = document.getElementById('chat-options-area-mobile');
+      var chatOptions = document.getElementById('chat-options-mobile');
+      var chatCtaArea = document.getElementById('chat-cta-area-mobile');
+      var chatProgressWrap = document.getElementById('chat-progress-wrap-mobile');
+      var chatCounter = document.getElementById('chat-counter-mobile');
+      if (!chatMessages) return;
+
+      var quizQuestions = [
+        { q: 'Quando foi a última auditoria interna do SGSI realizada na sua empresa?', opts: [{ text: 'Menos de 6 meses', pts: 0 },{ text: 'Entre 6 e 12 meses', pts: 4 },{ text: 'Mais de 12 meses', pts: 8 },{ text: 'Nunca realizamos ou não sei', pts: 10 }] },
+        { q: 'Seu SGSI já está adequado à ISO 27001:2022?', opts: [{ text: 'Sim, já migramos para a versão 2022', pts: 0 },{ text: 'Estamos em processo de transição', pts: 4 },{ text: 'Ainda estamos na versão 2013', pts: 8 },{ text: 'Não sei qual versão seguimos', pts: 10 }] },
+        { q: 'Sua análise de riscos de segurança da informação está atualizada?', opts: [{ text: 'Sim, revisamos pelo menos anualmente', pts: 0 },{ text: 'Última revisão foi há mais de 1 ano', pts: 5 },{ text: 'Fizemos apenas para a certificação inicial', pts: 8 },{ text: 'Não temos análise de riscos formal', pts: 10 }] },
+        { q: 'Sua Declaração de Aplicabilidade (SoA) reflete os controles efetivamente implementados?', opts: [{ text: 'Sim, revisamos e atualizamos regularmente', pts: 0 },{ text: 'Está parcialmente atualizada', pts: 5 },{ text: 'Não revisamos desde a certificação', pts: 8 },{ text: 'Não sei o que é a SoA', pts: 10 }] },
+        { q: 'Sua empresa tem um processo estruturado de gestão de incidentes de segurança?', opts: [{ text: 'Sim, com registro, análise e resposta documentados', pts: 0 },{ text: 'Temos procedimento, mas nem sempre é seguido', pts: 5 },{ text: 'Reagimos caso a caso, sem processo formal', pts: 8 },{ text: 'Não temos processo de gestão de incidentes', pts: 10 }] },
+        { q: 'Colaboradores receberam treinamento em segurança da informação nos últimos 12 meses?', opts: [{ text: 'Sim, temos programa contínuo de conscientização', pts: 0 },{ text: 'Fizemos treinamento pontual', pts: 4 },{ text: 'Apenas na integração de novos colaboradores', pts: 7 },{ text: 'Não houve treinamento', pts: 10 }] },
+        { q: 'Os controles de proteção de dados pessoais estão integrados ao SGSI?', opts: [{ text: 'Sim, LGPD e ISO 27001 estão totalmente integrados', pts: 0 },{ text: 'Parcialmente — alguns controles cobrem LGPD', pts: 5 },{ text: 'LGPD e SGSI são tratados separadamente', pts: 8 },{ text: 'Não temos adequação à LGPD', pts: 10 }] },
+        { q: 'Como é gerenciado o controle de acesso aos sistemas e informações críticas?', opts: [{ text: 'Política formal com revisão periódica de acessos', pts: 0 },{ text: 'Temos controle, mas sem revisão regular', pts: 5 },{ text: 'Controle básico, sem política documentada', pts: 8 },{ text: 'Não temos controle formal de acessos', pts: 10 }] },
+        { q: 'Quando é sua próxima auditoria de manutenção ou recertificação?', opts: [{ text: 'Em mais de 6 meses', pts: 0 },{ text: 'Nos próximos 3 a 6 meses', pts: 5 },{ text: 'Nos próximos 3 meses', pts: 8 },{ text: 'Não sei / já está atrasada', pts: 10 }] },
+        { q: 'Quem realiza as auditorias internas do SGSI na sua empresa?', opts: [{ text: 'Empresa terceirizada especializada em SI', pts: 0 },{ text: 'Auditor interno qualificado e independente', pts: 3 },{ text: 'Equipe de TI faz autoavaliação', pts: 7 },{ text: 'Não temos auditor definido', pts: 10 }] }
+      ];
+
+      var currentQ = 0, totalScore = 0, answers = [], startTime = null;
+
+      function scrollChat() { setTimeout(function() { chatMessages.scrollTop = chatMessages.scrollHeight; }, 50); }
+      function addTyping() { var div = document.createElement('div'); div.id = 'typing-indicator-mobile'; div.innerHTML = '<div class="chat-typing"><span></span><span></span><span></span></div>'; chatMessages.appendChild(div); scrollChat(); }
+      function removeTyping() { var t = document.getElementById('typing-indicator-mobile'); if (t) t.remove(); }
+      function addBotMsg(text) { removeTyping(); var div = document.createElement('div'); div.innerHTML = '<div class="chat-bubble-bot">' + text + '</div>'; chatMessages.appendChild(div); scrollChat(); }
+      function addUserMsg(text) { var div = document.createElement('div'); div.className = 'flex justify-end'; div.innerHTML = '<div class="chat-bubble-user">' + text + '</div>'; chatMessages.appendChild(div); scrollChat(); }
+
+      function showOptions(opts) {
+        chatOptionsArea.classList.remove('hidden');
+        chatOptions.innerHTML = '';
+        opts.forEach(function(opt, i) {
+          var btn = document.createElement('button');
+          btn.className = 'chat-option-btn';
+          btn.textContent = opt.text;
+          btn.onclick = function() { selectAnswer(i); };
+          chatOptions.appendChild(btn);
+        });
+        scrollChat();
+      }
+      function hideOptions() { chatOptionsArea.classList.add('hidden'); chatOptions.innerHTML = ''; }
+
+      function selectAnswer(idx) {
+        var q = quizQuestions[currentQ]; var opt = q.opts[idx];
+        hideOptions(); addUserMsg(opt.text);
+        totalScore += opt.pts;
+        answers.push({ question: q.q, answer: opt.text, points: opt.pts });
+        currentQ++;
+        if (currentQ < quizQuestions.length) {
+          chatCounter.textContent = (currentQ + 1) + '/10';
+          setTimeout(function() { addTyping(); setTimeout(function() { addBotMsg(quizQuestions[currentQ].q); showOptions(quizQuestions[currentQ].opts); }, 800); }, 400);
+        } else {
+          setTimeout(function() { addTyping(); setTimeout(function() { addBotMsg('Analisando suas respostas...'); setTimeout(function() { addTyping(); setTimeout(function() { showResult(); }, 1000); }, 600); }, 1000); }, 400);
+        }
+      }
+
+      function showResult() {
+        removeTyping();
+        var level, color, colorBg, icon, title, text;
+        if (totalScore <= 30) { level = 'Risco Baixo'; color = '#22c55e'; colorBg = '#f0fdf4'; icon = '\u2705'; title = 'Seu SGSI Est\u00e1 Bem Estruturado'; text = 'Sua empresa demonstra maturidade na gest\u00e3o de seguran\u00e7a da informa\u00e7\u00e3o. Uma auditoria independente pode revelar oportunidades de melhoria.'; }
+        else if (totalScore <= 60) { level = 'Risco Moderado'; color = '#eab308'; colorBg = '#fefce8'; icon = '\u26a0\ufe0f'; title = 'Gaps Identificados'; text = 'Existem vulnerabilidades no seu SGSI que podem gerar n\u00e3o conformidades na pr\u00f3xima auditoria.'; }
+        else { level = 'Risco Alto'; color = '#ef4444'; colorBg = '#fef2f2'; icon = '\ud83d\udea8'; title = 'Sua Certifica\u00e7\u00e3o Est\u00e1 em Perigo'; text = 'V\u00e1rios requisitos cr\u00edticos da ISO 27001 apresentam gaps significativos.'; }
+        var sorted = answers.slice().sort(function(a, b) { return b.points - a.points; });
+        var topRisks = sorted.slice(0, 3).filter(function(a) { return a.points > 0; });
+        var risksHtml = '';
+        if (topRisks.length > 0) {
+          risksHtml = '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #e5e7eb;"><div style="font-size:11px;font-weight:600;color:#6b7280;margin-bottom:6px;">MAIORES RISCOS:</div>';
+          topRisks.forEach(function(r) { risksHtml += '<div style="font-size:11px;color:#374151;padding:3px 0;">\u2022 ' + r.question.replace(/\?$/, '') + '</div>'; });
+          risksHtml += '</div>';
+        }
+        var gaugePercent = Math.min(totalScore, 100); var circumference = 2 * Math.PI * 40; var offset = circumference - (gaugePercent / 100) * circumference;
+        var resultHtml = '<div class="chat-result-card"><div style="text-align:center;"><div style="position:relative;width:100px;height:100px;margin:0 auto 12px;"><svg width="100" height="100" viewBox="0 0 100 100" style="transform:rotate(-90deg);"><circle cx="50" cy="50" r="40" stroke="#e5e7eb" stroke-width="8" fill="none"/><circle id="gauge-anim-mobile" cx="50" cy="50" r="40" stroke="' + color + '" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + circumference + '" style="transition: stroke-dashoffset 1.5s ease-out;"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span id="gauge-num-mobile" style="font-size:24px;font-weight:800;color:#1f2937;">0</span></div></div><div style="display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;background:' + colorBg + ';color:' + color + ';">' + icon + ' ' + level + '</div><div style="font-size:14px;font-weight:700;color:#1f2937;margin-bottom:6px;">' + title + '</div><div style="font-size:12px;color:#6b7280;line-height:1.5;">' + text + '</div>' + risksHtml + '</div></div>';
+        var div = document.createElement('div'); div.innerHTML = resultHtml; chatMessages.appendChild(div); scrollChat();
+        setTimeout(function() {
+          var gaugeEl = document.getElementById('gauge-anim-mobile');
+          if (gaugeEl) gaugeEl.setAttribute('stroke-dashoffset', offset);
+          var numEl = document.getElementById('gauge-num-mobile');
+          var dur = 1500, startTs = null;
+          function animNum(ts) { if (!startTs) startTs = ts; var prog = Math.min((ts - startTs) / dur, 1); numEl.textContent = Math.floor(prog * totalScore); if (prog < 1) requestAnimationFrame(animNum); else numEl.textContent = totalScore; }
+          requestAnimationFrame(animNum);
+        }, 100);
+        chatCtaArea.classList.remove('hidden');
+        // Reveal form section
+        var formSection = document.getElementById('form');
+        if (formSection) { formSection.style.display = ''; formSection.style.opacity = '1'; formSection.style.transform = 'none'; }
+        window.quizData = { score: totalScore, level: level, answers: answers, topRisks: sorted.slice(0, 3).filter(function(a) { return a.points > 0; }) };
+        if (window.dataLayer) { window.dataLayer.push({ event: 'quiz_completed', quiz_type: 'ISO 27001', quiz_score: totalScore, quiz_level: level, quiz_time_seconds: startTime ? Math.round((Date.now() - startTime) / 1000) : 0, quiz_answers: answers }); }
+      }
+
+      window.startChatMobile = function() {
+        startTime = Date.now();
+        chatStartArea.style.display = 'none';
+        chatProgressWrap.style.display = '';
+        chatCounter.textContent = '1/10';
+        addUserMsg('Quero começar o diagnóstico!');
+        setTimeout(function() { addTyping(); setTimeout(function() { addBotMsg(quizQuestions[0].q); showOptions(quizQuestions[0].opts); }, 800); }, 400);
+      };
+
+      // Pre-populate welcome messages when modal opens
+      window.initMobileChat = function() {
+        if (chatMessages.children.length > 0) return; // already initialized
+        setTimeout(function() { addTyping(); }, 200);
+        setTimeout(function() { addBotMsg('Olá! \ud83d\udc4b Sou o assistente de diagnóstico da Templum.'); }, 1000);
+        setTimeout(function() { addTyping(); }, 1500);
+        setTimeout(function() { addBotMsg('Vou avaliar os riscos da sua certificação <strong>ISO 27001</strong> em apenas 10 perguntas rápidas. Leva menos de 2 minutos!'); }, 2500);
+      };
+    })();
+
+    // Mobile chat modal open/close
+    window.openMobileChat = function() {
+      var overlay = document.getElementById('mobile-chat-overlay');
+      var modal = document.getElementById('mobile-chat-modal');
+      if (overlay) overlay.classList.add('active');
+      if (modal) modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (window.initMobileChat) window.initMobileChat();
+    };
+    window.closeMobileChat = function() {
+      var overlay = document.getElementById('mobile-chat-overlay');
+      var modal = document.getElementById('mobile-chat-modal');
+      if (overlay) overlay.classList.remove('active');
+      if (modal) modal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    // Also redirect mobile CTA links to open mobile chat
+    document.querySelectorAll('a[href="#diagnostico"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        if (window.innerWidth < 768) {
+          e.preventDefault();
+          openMobileChat();
+        }
+      });
+    });
+
+    // Typewriter effect
+    (function() {
+      var line1 = document.getElementById('headline-line1');
+      var line2 = document.getElementById('headline-line2');
+      var sub = document.getElementById('subheadline');
+      if (!line1) return;
+
+      var fullText = 'Sua certificação ISO 27001 está em risco?';
+      line1.innerHTML = '';
+      line1.style.borderRight = '3px solid #00469D';
+
+      var i = 0;
+      function type() {
+        if (i < fullText.length) {
+          line1.textContent += fullText.charAt(i);
+          i++;
+          setTimeout(type, 22);
+        } else {
+          line1.style.borderRight = 'none';
+          line1.innerHTML = 'Sua certificação <span class="highlight-marker" id="hl-marker">ISO 27001 está em risco?</span>';
+          setTimeout(function() {
+            document.getElementById('hl-marker').classList.add('active');
+          }, 100);
+          setTimeout(function() {
+            if (line2) line2.classList.add('visible');
+          }, 500);
+          setTimeout(function() {
+            if (sub) sub.classList.add('visible');
+          }, 900);
+        }
+      }
+      setTimeout(type, 200);
+    })();
+
+  })();
+  </script>
+</body>
+</html>
