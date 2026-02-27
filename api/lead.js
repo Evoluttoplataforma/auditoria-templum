@@ -2,6 +2,7 @@ const PIPEDRIVE_API_TOKEN = process.env.PIPEDRIVE_API_TOKEN;
 const PIPEDRIVE_BASE = 'https://api.pipedrive.com/v1';
 const PIPELINE_ID = 1;   // INBOUND
 const STAGE_ID = 218;    // NOVO LEAD
+const OWNER_ID = 13840454; // Tatiana Sanches
 
 // Pipedrive custom field keys for deal
 const DEAL_FIELDS = {
@@ -83,6 +84,7 @@ async function createDeal(title, personId, orgId, customFields) {
     title,
     person_id: personId,
     org_id: orgId,
+    user_id: OWNER_ID,
     pipeline_id: PIPELINE_ID,
     stage_id: STAGE_ID,
     ...customFields,
@@ -96,6 +98,7 @@ async function createDeal(title, personId, orgId, customFields) {
 async function createNote(dealId, htmlContent) {
   const res = await pipedrive('POST', '/notes', {
     deal_id: dealId,
+    user_id: OWNER_ID,
     content: htmlContent,
     pinned_to_deal_flag: 1,
   });
