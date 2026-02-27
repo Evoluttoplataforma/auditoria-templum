@@ -284,7 +284,10 @@
     #chat-messages::-webkit-scrollbar-track { background: transparent; }
     #chat-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    *, *::before, *::after { box-sizing: border-box; }
+    main, section, div, p, h1, h2, h3, h4, a, button, span { max-width: 100%; }
+    body { overflow-wrap: break-word; word-wrap: break-word; }
     .form-success { animation: slide-up-fade 0.5s ease-out; }
     .form-error { animation: slide-up-fade 0.3s ease-out; }
     .counter { font-variant-numeric: tabular-nums; }
@@ -379,12 +382,12 @@
       <img src="mao-apontando.webp" alt="" class="hidden md:block absolute bottom-0 right-0 w-32 lg:w-40 z-10 pointer-events-none select-none" style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
+          <div class="min-w-0">
             <div class="inline-flex items-center gap-2 bg-blue-50 text-brand-blue text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-6 animate-blur-in">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               AUDITORIA ISO 9001
             </div>
-            <h1 class="text-2xl sm:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-[1.15] tracking-tight mb-3">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-[1.15] tracking-tight mb-3">
               <span id="headline-line1" class="block"></span>
             </h1>
             <p id="headline-line2" class="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-brand-blue leading-snug mb-6 typewriter-sub">
@@ -1779,33 +1782,35 @@
       var sub = document.getElementById('subheadline');
       if (!line1) return;
 
-      var fullText = 'Sua certificação ISO 9001 está em risco?';
-      var highlightStart = 'Sua certificação '.length;
-      line1.innerHTML = '';
-      line1.style.borderRight = '3px solid #00469D';
+      var isMobile = window.innerWidth < 768;
 
-      var i = 0;
-      function type() {
-        if (i < fullText.length) {
-          line1.textContent += fullText.charAt(i);
-          i++;
-          setTimeout(type, 22);
-        } else {
-          line1.style.borderRight = 'none';
-          // Apply highlight markup
-          line1.innerHTML = 'Sua certificação <span class="highlight-marker" id="hl-marker">ISO 9001 está em risco?</span>';
-          setTimeout(function() {
-            document.getElementById('hl-marker').classList.add('active');
-          }, 100);
-          setTimeout(function() {
-            if (line2) line2.classList.add('visible');
-          }, 500);
-          setTimeout(function() {
-            if (sub) sub.classList.add('visible');
-          }, 900);
-        }
+      function showFinal() {
+        line1.style.borderRight = 'none';
+        line1.innerHTML = 'Sua certificação <span class="highlight-marker" id="hl-marker">ISO 9001 está em risco?</span>';
+        setTimeout(function() { document.getElementById('hl-marker').classList.add('active'); }, 100);
+        setTimeout(function() { if (line2) line2.classList.add('visible'); }, isMobile ? 100 : 500);
+        setTimeout(function() { if (sub) sub.classList.add('visible'); }, isMobile ? 200 : 900);
       }
-      setTimeout(type, 200);
+
+      if (isMobile) {
+        // No typewriter on mobile - show text immediately
+        showFinal();
+      } else {
+        line1.innerHTML = '';
+        line1.style.borderRight = '3px solid #00469D';
+        var fullText = 'Sua certificação ISO 9001 está em risco?';
+        var i = 0;
+        function type() {
+          if (i < fullText.length) {
+            line1.textContent += fullText.charAt(i);
+            i++;
+            setTimeout(type, 22);
+          } else {
+            showFinal();
+          }
+        }
+        setTimeout(type, 200);
+      }
     })();
 
     // Mobile Chat Quiz
